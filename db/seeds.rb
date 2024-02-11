@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+unless User.find_by_email('admin@example.com')
+  User.create(email: 'admin@example.com', password: 'password', password_confirmation: 'password', role: 'admin')
+end
+
+Campaign.find_or_create_by(name: "Test Campaign")
+Message.find_or_create_by(name: "Test Message")
+Template.find_or_create_by(name: "Test Template")
