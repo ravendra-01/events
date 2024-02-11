@@ -11,6 +11,14 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class='container-fluid'>
+      <div class='row'>
+        <div class='col-lg-8 mx-auto'>
+          <%= render 'layouts/navbar' %>
+        </div>
+        <div class='col-lg-8 mx-auto'>
+          <%= yield %>
+        </div>
+    </div>
   </body>
 </html>
