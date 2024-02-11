@@ -2,10 +2,10 @@ class EmailsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create
-    email = Email.new(email_params)
-    if email.save
-      render json: { email: 'Send successfully'}, status: :ok
-    end
+    email = Email.create(email_params)
+    # if email.save
+    #   render json: { email: 'Send successfully'}, status: :ok
+    # end
   end
 
   private

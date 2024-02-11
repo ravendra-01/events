@@ -10,24 +10,23 @@ class EventsController < ApplicationController
       @event = EventB.new(event_params)
     end
     if @event.save
-      uri = URI('http://localhost:3000/emails/create')
-      http = Net::HTTP.new(uri.host, uri.port)
-      
-      req = Net::HTTP::Post.new(uri.path, {'Content-Type' => 'application/json'})
-      req.body = {
-        email: {
-          campaign_id: @event.campaign_id,
-          recipient_email: @event.email,
-          recipient_user_id: @event.user_id,
-          data_field: {},
-          mata_data: {}
-        }
-      }.to_json
-      response = http.request(req)
-      body = JSON.parse(response.body)
-      if response.code == "200"
-        render json: { event: 'created successfully'}, status: :ok
+      if @event.type == 'EventB'
+        uri = URI('http://localhost:3000/emails/create')
+        http = Net::HTTP.new(uri.host, uri.port)
+        
+        req = Net::HTTP::Post.new(uri.path, {'Content-Type' => 'application/json'})
+        req.body = {
+          email: {
+            campaign_id: @event.campaign_id,
+            recipient_email: @event.email,
+            recipient_user_id: @event.user_id,
+            data_field: {},
+            mata_data: {}
+          }
+        }.to_json
+        response = http.request(req)
       end
+      render json: { event: "#{@event.event_name} created successfully"}, status: :ok
     end
   end
 

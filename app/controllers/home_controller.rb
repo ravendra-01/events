@@ -31,7 +31,7 @@ class HomeController < ApplicationController
     response = http.request(req)
     body = JSON.parse(response.body)
     if response.code == "200"
-      redirect_to root_path, notice: 'Event created'
+      redirect_to root_path, notice: "#{body["event"]}"
     else
       redirect_to root_path, alert: 'Unable to create event'
     end
