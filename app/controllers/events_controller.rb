@@ -1,14 +1,33 @@
+require 'uri'
+require 'net/http'
 class EventsController < ApplicationController
   skip_before_action :verify_authenticity_token
   def create_event
     case event_params[:event_name]
     when 'Event A'
-      event = EventA.new(event_params)
+      @event = EventA.new(event_params)
     when 'Event B'
-      event = EventB.new(event_params)
+      @event = EventB.new(event_params)
     end
-    if event.save
-      render json: { event: 'created successfully'}, status: :ok
+    if @event.save
+      uri = URI('http://localhost:3000/emails/create')
+      http = Net::HTTP.new(uri.host, uri.port)
+      
+      req = Net::HTTP::Post.new(uri.path, {'Content-Type' => 'application/json'})
+      req.body = {
+        email: {
+          campaign_id: @event.campaign_id,
+          recipient_email: @event.email,
+          recipient_user_id: @event.user_id,
+          data_field: {},
+          mata_data: {}
+        }
+      }.to_json
+      response = http.request(req)
+      body = JSON.parse(response.body)
+      if response.code == "200"
+        render json: { event: 'created successfully'}, status: :ok
+      end
     end
   end
 

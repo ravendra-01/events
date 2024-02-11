@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   root "home#new"
   post 'home/create', to: 'home#create', as: 'create_event'
   post 'events/create_event', to: 'events#create_event'
+  post 'emails/create', to: 'emails#create', as: 'send_email'
   resources :admin
 end
