@@ -3,5 +3,8 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  root "home#index"
+  root "home#new"
+  post 'home/create', to: 'home#create', as: 'create_event'
+  post 'events/create_event', to: 'events#create_event'
+  resources :admin
 end
