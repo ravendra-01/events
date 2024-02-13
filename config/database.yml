@@ -82,5 +82,5 @@ test:
 production:
   <<: *default
   database: event_production
-  username: event
-  password: <%= ENV["EVENT_DATABASE_PASSWORD"] %>
+  username: rails
+  password: Rails@12345
